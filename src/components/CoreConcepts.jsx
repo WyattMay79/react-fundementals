@@ -1,24 +1,39 @@
-//One way of creating th function to get the values for the component
-// function CoreConcepts(props) {
-//   return ( 
-//   <li>
-//     <img src={props.image} alt={props.title} />
-//     <h3>{props.title}</h3>
-//     <p>{props.description}</p>
-//   </li>
-//   );
-// }
+import CoreConcept from "./CoreConcept.jsx";
+import { CORE_CONCEPTS } from "../data.js";
 
 
-//Another way using object destructuring to copy the data (JSON or whatever) to use in the component
-// by naming the incoming dataset in {val1, val2, val3...} and then using those directly in the func to have the 
-//values displayed properly
-export default function CoreConcepts({image, title, description}) {
+
+export default function CoreConcepts() {
     return ( 
-    <li>
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </li>
+        <section id="core-concepts">
+          <h2>Core Concepts</h2>
+          <ul>
+            {/* Shortcut to display component data thats stored in an array, that might change in the future */}
+            {CORE_CONCEPTS.map((conceptItem) => (
+              <CoreConcept key={conceptItem.title} {...conceptItem} />
+            ))}
+
+            {/* 
+            The code below does the same thing as the above code, except it hard codes the values in the data
+            so if the amount of the data changes it could *break* the program and not display correctly or not 
+            display all of the code thats actually in the array unless you hard code it in like below 
+            */}
+            {/* <CoreConcepts
+              title={CORE_CONCEPTS[0].title}
+              description={CORE_CONCEPTS[0].description}
+              image={CORE_CONCEPTS[0].image}
+            /> */}
+            {/* 
+            Shortcut for cutting down time on writting out the code for the component 
+            this method is still hard coded and not dynamic, meaning if the amount of data changes +/- 
+            it will only display what is coded below, or throw an error if the hard coded data  
+            no longer exists
+            */}
+            {/* <CoreConcepts {...CORE_CONCEPTS[1]} />
+            <CoreConcepts {...CORE_CONCEPTS[2]} />
+            <CoreConcepts {...CORE_CONCEPTS[3]} /> */}
+          </ul>
+
+        </section>
     );
-  }
+};
